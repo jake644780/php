@@ -13,14 +13,31 @@
    </form>
 </body>
 </html>
+ 
+ <!--Porthub Premium -->
  <?php
- require('connect.php');
+ //require('connect.php');
+ $conn = new mysqli("localhost", "root", "","3minusperfumes_forum");
+
  $username = @$_POST['username'];
  $email = @$_POST['email'];
  $password = @$_POST['password'];
  $repassword = @$_POST['repass'];
  
- if (isset($_POST['submit'])){
-    echo "username: - ".$username; 
- }
+ //insert into
+ $q = "insert into users(`id`, `username`, `password`, `email`) values ('','.$username.', '.$password.', '.$email.');";
+
+if (isset($_POST['submit'])){
+    if ($username && $password && $repassword && $email){
+
+    }else{
+        echo "please fill in the fields. <br>";
+    }
+
+    if ($conn->query($q)){
+        echo "success";
+    } else{
+        echo "no success";
+    }
+}
  ?>
