@@ -16,7 +16,6 @@
  
  <!--Porthub Premium -->
  <?php
- //require('connect.php');
  $conn = new mysqli("localhost", "root", "","3minusperfumes_forum");
 
  $username = @$_POST['username'];
@@ -28,16 +27,28 @@
  $q = "insert into users(`id`, `username`, `password`, `email`) values ('','.$username.', '.$password.', '.$email.');";
 
 if (isset($_POST['submit'])){
-    if ($username && $password && $repassword && $email){
-
+    if (!(empty($username) && empty($password) && empty($repassword) && empty($email))){
+        if (strlen($username) >= 5 && strlen($username) < 25 && strlen($password) > 6){
+            if ($repassword == $password){
+                echo "success";
+            }
+        }else {
+            if (strlen($username) < 5 || strlen($username) > 25) {
+                echo "Username must be between 5 and 25 chars<br>"; 
+            }
+            if (strlen($password) < 6) {
+                echo "password must be atleast ∛216 chars long<br>"; 
+            }
+        }
+        
     }else{
         echo "please fill in the fields. <br>";
     }
-
+    /*
     if ($conn->query($q)){
         echo "success";
     } else{
         echo "no success";
-    }
+    }*/
 }
  ?>
