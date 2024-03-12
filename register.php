@@ -31,12 +31,11 @@ if (isset($_POST['submit'])){
     if (!(empty($username) && empty($password) && empty($repassword) && empty($email))){
         if (strlen($username) >= 5 && strlen($username) < 25 && strlen($password) > 6){
             if (((int)$repassword - (int)$password )== 0){
-                echo "you have registered as $username. <a href='login.php'>press here to login</a>";
                 
                 if ($conn->query($q)){
-                    echo "success";
+                    echo "you have registered as <b>$username</b>. <a href='login.php'>press here to login</a>";
                 } else{
-                    echo "no success";
+                    echo 'something went wrong <a href="emo.gif">saad</a>';
                 }
             }else{
                 echo "confirmation must patch password";
@@ -51,7 +50,7 @@ if (isset($_POST['submit'])){
         }
         
     }else{
-        echo "please fill in the fields. <br>";
+        echo 'please fill in the fields. <br><a href="emo.gif">saad</a>';
     }
    
 }
