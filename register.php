@@ -16,21 +16,28 @@
  
  <!--Porthub Premium -->
  <?php
- $conn = new mysqli("localhost", "root", "","3minusperfumes_forum");
 
- $username = @$_POST['username'];
- $email = @$_POST['email'];
- $password = @$_POST['password'];
- $repassword = @$_POST['repass'];
- $date = date("Y-m-d");
- //insert into
- $q = "insert into users(`id`, `username`, `password`, `email`, `date`) values ('','.$username.', '.$password.', '.$email.', '.$date.');";
+
+$conn = new mysqli("localhost", "root", "","3minusperfumes_forum");
+
+$username = @$_POST['username'];
+$email = @$_POST['email'];
+$password = @$_POST['password'];
+$repassword = @$_POST['repass'];
+$date = date("Y-m-d");
+$q = "insert into users(`id`, `username`, `password`, `email`, `date`) values ('','.$username.', '.$password.', '.$email.', '.$date.');";
 
 if (isset($_POST['submit'])){
     if (!(empty($username) && empty($password) && empty($repassword) && empty($email))){
         if (strlen($username) >= 5 && strlen($username) < 25 && strlen($password) > 6){
-            if ($repassword == $password){
+            if (((int)$repassword - (int)$password )== 0){
                 echo "you have registered as $username. <a href='login.php'>press here to login</a>";
+                
+                if ($conn->query($q)){
+                    echo "success";
+                } else{
+                    echo "no success";
+                }
             }else{
                 echo "confirmation must patch password";
             }
@@ -46,11 +53,6 @@ if (isset($_POST['submit'])){
     }else{
         echo "please fill in the fields. <br>";
     }
-    /*
-    if ($conn->query($q)){
-        echo "success";
-    } else{
-        echo "no success";
-    }*/
+   
 }
  ?>
