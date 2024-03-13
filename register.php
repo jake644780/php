@@ -17,15 +17,14 @@
  <!--Porthub Premium -->
  <?php
 
-
-$conn = new mysqli("localhost", "root", "","3minusperfumes_forum");
+require("connect.php");
 
 $username = @$_POST['username'];
 $email = @$_POST['email'];
 $password = @$_POST['password'];
 $repassword = @$_POST['repass'];
 $date = date("Y-m-d");
-$q = "insert into users(`id`, `username`, `password`, `email`, `date`) values ('','.$username.', '.$password.', '.$email.', '.$date.');";
+$q = "insert into users(`id`, `username`, `password`, `email`, `date`) values ('','$username', '$password', '$email', '$date');";
 
 if (isset($_POST['submit'])){
     if (!(empty($username) && empty($password) && empty($repassword) && empty($email))){

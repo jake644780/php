@@ -9,14 +9,14 @@
 </body>
 </html>
 <?php
+session_start();
 $username = @$_POST['username'];
 $password = @$_POST['password'];
-$conn = new mysqli("localhost", "root", "","3minusperfumes_forum");
-
+require("connect.php");
 
 if (isset($_POST['submit'])){
     if (!empty($username) && $password){
-        $check = "select * from users where username = '.$username.'";
+        $check = "select * from users where username = '$username'";
         $result = $conn->query($check);
         $rows = mysqli_num_rows($result);
         if ($rows != 0 ){
@@ -26,6 +26,8 @@ if (isset($_POST['submit'])){
             }
             if ( $username == $db_username && $password == $db_password){
                 echo "logged in";
+                @$_SESSION["username"] = $username;
+                header("Location: index.php");
             }
             else{
                 echo "your password is wronk";
