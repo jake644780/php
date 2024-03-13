@@ -29,7 +29,7 @@ $q = "insert into users(`id`, `username`, `password`, `email`, `date`) values ('
 if (isset($_POST['submit'])){
     if (!(empty($username) && empty($password) && empty($repassword) && empty($email))){
         if (strlen($username) >= 5 && strlen($username) < 25 && strlen($password) > 6){
-            if (((int)$repassword - (int)$password )== 0){
+            if (!($repassword != $password)){
                 
                 if ($conn->query($q)){
                     echo "you have registered as <b>$username</b>. <a href='login.php'>press here to login</a>";
