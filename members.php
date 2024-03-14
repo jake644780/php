@@ -25,3 +25,15 @@ if (@$_GET['action'] == 'logout'){
     header("location: login.php");
 }
 ?>
+<?php
+require("connect.php");
+$q = "select * from users";
+echo "<center><h1>Members</h1>";
+$result = $conn->query($q);
+
+while ($row = mysqli_fetch_assoc($result)){
+    $id = $row['id'];
+    echo "<a href='profile.php?id=$id'>".$row['username']."</a><br>";
+}
+echo "</center>";
+?>
