@@ -23,12 +23,12 @@
         $rows = mysqli_num_rows($result);
         if (mysqli_num_rows($result) != 0){
             while ($row = mysqli_fetch_assoc($result)){
-                echo "<h1>".$row['username']."</h1><br>";
-                echo "date registered: ".$row['date']."<br>";
-                echo "email: ".$row['email']."<br>";
-                echo "replies: ".$row['replies']."<br>";
-                echo "score: ".$row['score']."<br>";
-                echo "topics created: ".$row['topics']."<br>";
+                echo "<b><h1>".$row['username']."</h1><br>";
+                echo "<b>date registered:</b> ".$row['date']."<br>";
+                echo "<b>email: </b>".$row['email']."<br>";
+                echo "<b>replies: </b>".$row['replies']."<br>";
+                echo "<b>score: </b>".$row['score']."<br>";
+                echo "<b>topics created: </b>".$row['topics']."<br>";
 
             }
         } else{
