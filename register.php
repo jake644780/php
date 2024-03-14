@@ -19,17 +19,18 @@
 
 require("connect.php");
 
+//variables
 $username = @$_POST['username'];
 $email = @$_POST['email'];
 $password = @$_POST['password'];
-$repassword = @$_POST['repass'];
+$repassword = @$_POST['repassword'];
 $date = date("Y-m-d");
 $q = "insert into users(`id`, `username`, `password`, `email`, `date`) values ('','$username', '$password', '$email', '$date');";
 
 if (isset($_POST['submit'])){
     if (!(empty($username) && empty($password) && empty($repassword) && empty($email))){
         if (strlen($username) >= 5 && strlen($username) < 25 && strlen($password) > 6){
-            if (!($repassword != $password)){
+            if ($repassword == $password){
                 
                 if ($conn->query($q)){
                     echo "you have registered as <b>$username</b>. <a href='login.php'>press here to login</a>";
@@ -50,7 +51,6 @@ if (isset($_POST['submit'])){
         
     }else{
         echo 'please fill in the fields. <br><a href="emo.gif">saad</a>';
-    }
-   
+    }  
 }
  ?>
