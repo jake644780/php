@@ -5,8 +5,21 @@ if ($_SESSION['username']){
 ?>
 
 <html>
-    <?php?>
-<center><div class="navbar"><a href="index.php">Home page</a> | <a href="members.php">Members</a> | <?php echo 'Logged in as <a href="profile.php?id=">'; echo @$_SESSION["username"]." |"; $result = $conn->query($q); $rows = mysqli_num_rows($result); while ($row = mysqli_fetch_assoc($result)) echo $row['id'];?></a> | <a href="profile.php">my profile</a> | webshop | <a href="index.php?action=logout">logout</a></div></center>
+    <?php
+    $result = $conn->query($q); 
+    $rows = mysqli_num_rows($result); 
+    while ($row = mysqli_fetch_assoc($result)) $id = $row['id'];
+    ?>
+<center><div class="navbar"><a href="index.php">Home page</a> 
+| <a href="members.php">Members</a> 
+| <?php 
+        echo "logged in as <a href='profile.php?id=$id'>"; 
+        echo $_SESSION['username']; 
+        echo "</a> |"; ?> 
+| <a href="webshop.php">webshop</a> 
+| <a href="index.php?action=logout">logout</a>
+</div>
+</center>
 </html>
 
 <?php

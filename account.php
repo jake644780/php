@@ -14,9 +14,14 @@
     <script>console.log("hello mom!");</script>
     <head>
         <title>Home page</title>
+        
     </head>
-    <body>
     <?php include("header.php"); ?>
+    <body>
+    Username:
+    Email:
+    Date registered:
+    
     </body>
 </html>
 
