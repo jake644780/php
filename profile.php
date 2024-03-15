@@ -23,7 +23,7 @@
         $rows = mysqli_num_rows($result);
         if (mysqli_num_rows($result) != 0){
             while ($row = mysqli_fetch_assoc($result)){
-                echo "<b><h1>".$row['username']."</h1><br>";
+                echo "<b><h1>".$row['username']."<img src='".$row['profile_pic']."' width='500' height='500'></h1><br>";
                 echo "<b>date registered:</b> ".$row['date']."<br>";
                 echo "<b>email: </b>".$row['email']."<br>";
                 echo "<b>replies: </b>".$row['replies']."<br>";
