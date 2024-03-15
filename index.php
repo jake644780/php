@@ -10,8 +10,8 @@
 ?>
 
 <html>
-    <script>console.log("hello mom!");</script>
     <head>
+        <link rel="stylesheet" href="style.css">
         <title>Home page</title>
     </head>
     <body>

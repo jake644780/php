@@ -5,6 +5,13 @@ if ($_SESSION['username']){
 ?>
 
 <html>
+    <style>
+        .content{
+            margin: auto;
+            width: 50%;
+            text-align: center;
+        }
+    </style>
     <?php
     $result = $conn->query($q); 
     $rows = mysqli_num_rows($result); 
