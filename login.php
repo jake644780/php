@@ -1,5 +1,7 @@
 <html>
-<head><title>login please</title></head>
+<head><title>login please</title>
+<link rel="stylesheet" href="styles/style.css">
+</head>
 <body>
     <form action="login.php" method="POST">
         username: <input type="text" name="username"><br>
