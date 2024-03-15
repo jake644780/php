@@ -10,16 +10,16 @@ if ($_SESSION['username']){
     $rows = mysqli_num_rows($result); 
     while ($row = mysqli_fetch_assoc($result)) $id = $row['id'];
     ?>
-<center><div class="navbar"><a href="index.php">Home page</a> 
+<div class="navbar"><a href="index.php">Home page</a> 
 | <a href="members.php">Members</a> 
 | <?php 
         echo "logged in as <a href='profile.php?id=$id'>"; 
         echo $_SESSION['username']; 
         echo "</a> |"; ?> 
 | <a href="webshop.php">webshop</a> 
+| <a href="account.php">my account</a> 
 | <a href="index.php?action=logout">logout</a>
 </div>
-</center>
 </html>
 
 <?php
