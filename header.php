@@ -23,14 +23,22 @@ if ($_SESSION['username']){
     background-size: cover;
     color: wheat;
     
-} 
+    } 
 
     a {
         text-decoration: none;
         color: gold;
     }
 
+    textarea{
+        width: 400px;
+        height: 600px;
+        color: black;
+        resize: none;
+    }
     </style>
+
+
     <?php
     $q2 = "select * from users where username ='".$_SESSION['username']."'";
     $result = $conn->query($q2); 

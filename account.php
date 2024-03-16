@@ -94,6 +94,40 @@ if (@$_GET['action'] == "ci"){
     echo "<input type='file' name='image'><br>";
     echo "<input type='submit' name='change_pic' value='change'></div>";
     echo "</form>";
+    if (isset($_POST['change_pic'])){
+        $images_up = null;
+        $errors = array();
+        
+        $allowed_e = array('png','jpeg','jpg');
+        $file_name = $_FILES['image']['name'];
+        $file_e = strtolower(pathinfo($file_name, PATHINFO_EXTENSION));
+        $file_s = $_FILES['image']['size'];
+        $file_tmp = $_FILES['image']['tmp_name'];
+        
+        $q5 = "select * from users where username='".@$_SESSION['username']."'";
+        $q6 = "update users set profile_pic='".$images_up."' where username='".$_SESSION['username']."'";
+
+        if (in_array($file_e, $allowed_e) === false) $errors[] = 'this file extension is not allowed.';    
+        if ($file_s > 2097152) $erros[] = 'file must be under 2 mb';
+        
+        if (empty($erros)) {
+            move_uploaded_file($file_tmp, 'images/'.$file_name);
+            $images_up = 'images/'.$file_name;
+            $q6 = "update users set profile_pic='".$images_up."' where username='".$_SESSION['username']."'";
+            $result = $conn->query($q5);
+            $rows = mysqli_num_rows($result);
+            while ($row = mysqli_fetch_assoc($result)) $db_image =  $row['profile_pic'];
+            if ($query = $conn->query($q6)) {
+                echo "your image has been changed";
+                header("Refresh:0");
+            }
+        } else{
+            foreach($erros as $error){
+                echo $error, "<br>";
+            }
+        }
+    
+    }
 }
 ?>
 

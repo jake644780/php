@@ -14,10 +14,13 @@
 
         <title>3MinusPerfumes_Forum</title>
     </head>
+    <?php include("header.php"); ?>
     <body>
-    
+        <div class="content">
+            <a href="post.php"><button>Post topic</button></a>
+        </div>
 
-    <?php include("header.php"); ?> 
+     
     </body>
 </html>
 
