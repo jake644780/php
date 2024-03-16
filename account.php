@@ -17,7 +17,8 @@
     <?php include("header.php"); ?>
     <body>
         <?php
-            $result = $conn->query($q); 
+            $q4 = "select * from users where username='".$_SESSION['username']."'";
+            $result = $conn->query($q4); 
             $rows = mysqli_num_rows($result); 
             while ($row = mysqli_fetch_assoc($result)) {
                 $img = $row['profile_pic'];
@@ -48,14 +49,32 @@ if (@$_GET['action'] == 'logout'){
     header("location: login.php");
 } else if (@$_GET['action'] == "changepass"){
     echo "<div class='content'><form action='account.php?action=cp' method='POST'>";
-    echo "enter current password: <input type='text' name='pass'><br>";
-    echo "enter new password: <input type='text' name='newpass'><br>";
-    echo "confirm new password: <input type='text' name='repass'><br>";
-    echo "<input type='submit' name='changepass'>";
+    echo "enter current password: <input type='text' name='curr_pass'><br>";
+    echo "enter new password: <input type='text' name='new_pass'><br>";
+    echo "confirm new password: <input type='text' name='re_pass'><br>";
+    echo "<input type='submit' name='change_pass' value='change'>";
     echo "</form></div>";
-} if (isset($_POST['changepass'])) {
-    $result = $conn->query($q); 
+}
+
+$cur_pass = @$_POST['curr_pass'];
+$new_pass = @$_POST['new_pass'];
+$re_pass = @$_POST['re_pass'];
+$get_pass = null;
+if (isset($_POST['change_pass'])) {
+    $result = $conn->query($q4); 
     $rows = mysqli_num_rows($result); 
-    while ($row = mysqli_fetch_assoc($result)) echo "<div class='content'>".$row['password']."</div>";
+    while ($row = mysqli_fetch_assoc($result)) $get_pass = $row['password'];
+} if ($cur_pass == $get_pass){
+    if (strlen($new_pass) > 6){
+        if ($re_pass == $new_pass){
+            if ($q4 = $conn->query("update users set password='".$new_pass."' where username='".$_SESSION['username']."'")){
+              echo  "password changed";  
+            }
+        } else{
+            echo "new password do not match";
+        }
+    } else{
+        echo "new password must be atleast 7 characters long";
+    }
 }
 ?>

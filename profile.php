@@ -11,9 +11,9 @@
     <?php include("header.php"); ?> 
     <div class="content">
         <?php
+        $q3 = "select * from users where id='".$_GET['id']."'";
         if (@$_GET['id']){
-            $q = "select * from users where id='".$_GET['id']."'";
-            $result = $conn->query($q);
+            $result = $conn->query($q3);
             $rows = mysqli_num_rows($result);
             if (mysqli_num_rows($result) != 0){
                 while ($row = mysqli_fetch_assoc($result)){

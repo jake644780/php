@@ -1,6 +1,5 @@
 <?php
 require('connect.php');
-$q = "select * from users where username ='".$_SESSION['username']."'";
 if ($_SESSION['username']){
 ?>
 
@@ -22,11 +21,19 @@ if ($_SESSION['username']){
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-}
+    color: wheat;
+    
+} 
+
+    a {
+        text-decoration: none;
+        color: gold;
+    }
 
     </style>
     <?php
-    $result = $conn->query($q); 
+    $q2 = "select * from users where username ='".$_SESSION['username']."'";
+    $result = $conn->query($q2); 
     $rows = mysqli_num_rows($result); 
     while ($row = mysqli_fetch_assoc($result)) $id = $row['id'];
     ?>

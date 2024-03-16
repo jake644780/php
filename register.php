@@ -27,6 +27,7 @@ $repassword = @$_POST['repassword'];
 $date = date("Y-m-d");
 $q = "insert into users(`id`, `username`, `password`, `email`, `date`) values ('','$username', '$password', '$email', '$date');";
 
+
 if (isset($_POST['submit'])){
     if (!(empty($username) && empty($password) && empty($repassword) && empty($email))){
         if (strlen($username) >= 5 && strlen($username) < 25 && strlen($password) > 6){
