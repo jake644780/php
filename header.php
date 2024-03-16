@@ -11,6 +11,19 @@ if ($_SESSION['username']){
             width: 50%;
             text-align: center;
         }
+        body {
+    background-image: url("src/bg.png");
+
+    /* Set a specific height */
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
     </style>
     <?php
     $result = $conn->query($q); 

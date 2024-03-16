@@ -13,7 +13,6 @@
     <script>console.log("hello mom!");</script>
     <head>
         <title>Home page</title>
-        <link rel="stylesheet" href="styles/style.css">
     </head>
     <?php include("header.php"); ?>
     <body>

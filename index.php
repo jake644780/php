@@ -11,11 +11,31 @@
 
 <html>
     <head>
-            <link rel="stylesheet" href="styles/style.css">
 
-        <title>Home page</title>
+        <title>3MinusPerfumes_Forum</title>
     </head>
     <body>
+    
+    <style>
+        .content{
+            margin: auto;
+            width: 50%;
+            text-align: center;
+        }
+        body {
+    background-image: url("src/bg.png");
+
+    /* Set a specific height */
+    min-height: 100vh;
+    overflow-x: hidden;
+
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+    </style>
     <?php include("header.php"); ?>
     </body>
 </html>

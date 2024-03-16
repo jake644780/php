@@ -1,6 +1,5 @@
 <html>
 <head>
-    <link rel="stylesheet" href="styles/style.css">
     <title>3MinusPerfumes</title>
 </head>
 <body>

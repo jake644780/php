@@ -6,7 +6,6 @@
 <html>
     <head>
         <title>Profile page</title>    
-        <link rel="stylesheet" href="styles/style.css">
     </head>
     <body>
     <?php include("header.php"); ?> 
