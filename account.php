@@ -38,16 +38,20 @@
                     <b>Replies:</b> <?php echo $replies;?><br>
                     <b>Score:</b> <?php echo $score;?><br>
                     <b>Topics: </b><?php echo $topics;?><br><br>
-                    <a href="account.php?action=changepass">Change password</a>
+                    <a href="account.php?action=changepass">Change password</a><br><br>
+                    <a href="account.php?action=ci">Change Profile pic</a>
         </div>
     </body>
 </html>
 
 <?php
+//logging out / 
 if (@$_GET['action'] == 'logout'){
     session_destroy();
     header("location: login.php");
-} else if (@$_GET['action'] == "changepass"){
+} 
+//changing password
+if (@$_GET['action'] == "changepass"){
     echo "<div class='content'><form action='account.php?action=cp' method='POST'>";
     echo "enter current password: <input type='text' name='curr_pass'><br>";
     echo "enter new password: <input type='text' name='new_pass'><br>";
@@ -56,25 +60,41 @@ if (@$_GET['action'] == 'logout'){
     echo "</form></div>";
 }
 
-$cur_pass = @$_POST['curr_pass'];
+$curr_pass = @$_POST['curr_pass'];
 $new_pass = @$_POST['new_pass'];
 $re_pass = @$_POST['re_pass'];
+
 $get_pass = null;
 if (isset($_POST['change_pass'])) {
     $result = $conn->query($q4); 
     $rows = mysqli_num_rows($result); 
-    while ($row = mysqli_fetch_assoc($result)) $get_pass = $row['password'];
-} if ($cur_pass == $get_pass){
-    if (strlen($new_pass) > 6){
-        if ($re_pass == $new_pass){
-            if ($q4 = $conn->query("update users set password='".$new_pass."' where username='".$_SESSION['username']."'")){
-              echo  "password changed";  
+    while ($row = mysqli_fetch_assoc($result)) {
+        $get_pass = $row['password'];
+    }
+    if ($curr_pass == $get_pass){
+        if (strlen($new_pass) > 6){
+            if ($re_pass == $new_pass){
+                if ($q4 = $conn->query("update users set password='".$new_pass."' where username='".$_SESSION['username']."'")){
+                    echo  "<div class='content'>password changed</div>";  
+                }
+            } else{
+                echo "<div class='content'>new password do not match</div>";
             }
         } else{
-            echo "new password do not match";
+            echo "<div class='content'>new password must be atleast 7 characters long</div>";
         }
-    } else{
-        echo "new password must be atleast 7 characters long";
+    } else {
+        echo "current password is incorrect";
     }
 }
+//changing profile pic
+if (@$_GET['action'] == "ci"){
+    echo "<form action='account.php?action=ci' method='POST' enctype='multipart/form-data'><br>";
+    echo "<div class='content'>available file extension: <b>.PNG .JPEG .JPG</b><br><br>";
+    echo "<input type='file' name='image'><br>";
+    echo "<input type='submit' name='change_pic' value='change'></div>";
+    echo "</form>";
+}
 ?>
+
+
