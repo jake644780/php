@@ -18,6 +18,42 @@
     <body>
         <div class="content">
             <a href="post.php"><button>Post topic</button></a>
+            <?php echo '<table border="20px" style="border: 10px;">'?>
+                <tr>
+                    <td>
+                         <span>ID</span>
+                    </td>
+                    <td style="width: 400px;">
+                        Name
+                    </td>
+                    <td style="width: 80px;">
+                        Views
+                    </td>
+                    <td style="width: 80px;">
+                        Creator
+                    </td>
+                    <td style="width: 80px;">
+                        Date
+                    </td>
+                </tr>
+            <?php
+                $q8 = "select * from topics";
+                $result = $conn->query($q8);
+                if (mysqli_num_rows($result) != 0) {
+                    while($row = mysqli_fetch_assoc($result)){
+                        $id = $row['topic_id'];
+                        echo "<tr>";
+                        echo "<td><a href='topic.php?id=$id'>".$row['topic_id']."</a></td>";
+                        echo "<td>".$row['topic_name']."</td>";
+                        echo "<td>".$row['views']."</td>";
+                        echo "<td>".$row['topic_creator']."</td>";
+                        echo "<td>".$row['date']."</td>";
+                        echo "</tr>";
+                    }
+                }
+                else echo "topics not found";
+                echo"</table>";
+            ?>
         </div>
 
      
