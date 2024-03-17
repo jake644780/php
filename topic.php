@@ -19,7 +19,7 @@
         <div class="content">
             
         <?php
-        $q9 = "select * from topics where topic_id='".$_GET['id']."'";
+        $q9 = "select * from posts where topic_id='".$_GET['id']."'";
         if($_GET['id']){
             $result = $conn->query($q9);
             if (mysqli_num_rows($result)){

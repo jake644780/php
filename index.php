@@ -37,7 +37,7 @@
                     </td>
                 </tr>
             <?php
-                $q8 = "select * from topics";
+                $q8 = "select * from posts";
                 $result = $conn->query($q8);
                 if (mysqli_num_rows($result) != 0) {
                     while($row = mysqli_fetch_assoc($result)){
@@ -56,7 +56,7 @@
                         echo "</tr>";
                     }
                 }
-                else echo "topics not found";
+                else echo " not found";
                 echo"</table>";
             ?>
         </div>
