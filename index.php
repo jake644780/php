@@ -27,9 +27,6 @@
                         Name
                     </td>
                     <td style="width: 80px;">
-                        Views
-                    </td>
-                    <td style="width: 80px;">
                         Creator
                     </td>
                     <td style="width: 80px;">
@@ -37,26 +34,24 @@
                     </td>
                 </tr>
             <?php
-                $q8 = "select * from posts";
+                $q8 = "select * from topic";
                 $result = $conn->query($q8);
                 if (mysqli_num_rows($result) != 0) {
                     while($row = mysqli_fetch_assoc($result)){
-                        $tid = $row['topic_id'];
+                        $tid = $row['id'];
                         echo "<tr>";
-                        echo "<td><a href='topic.php?id=$tid'>".$row['topic_id']."</td></a>";
-                        echo "<td><a href='topic.php?id=$tid'>".$row['topic_name']."</td></a>";
-                        echo "<td><a href='topic.php?id=$tid'>".$row['views']."</td></a>";
-                        $q11 = "select * from users where username='".$row['topic_creator']."'";
+                        echo "<td><a href='topic.php?id=$tid'>".$row['id']."</td></a>";
+                        echo "<td><a href='topic.php?id=$tid'>".$row['name']."</td></a>";
+                        $q11 = "select * from users where username='".$row['creator']."'";
                         $result_2 = $conn->query($q11);
                         while ($rows = mysqli_fetch_assoc($result_2)){
                             $creator = $rows['id'];
                         }
-                        echo "<td><a href='profile.php?id=$creator'>".$row['topic_creator']."</td></a>";
+                        echo "<td><a href='profile.php?id=$creator'>".$row['creator']."</td></a>";
                         echo "<td><a href='topic.php?id=$tid'>".$row['date']."</td></a>";
                         echo "</tr>";
                     }
-                }
-                else echo " not found";
+                } else echo " not found";
                 echo"</table>";
             ?>
         </div>

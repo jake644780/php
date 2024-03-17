@@ -27,7 +27,7 @@
 if (isset($_POST['submit'])){
     $topic_name = @$_POST['topic_name'];
     $content = @$_POST['con'];
-    $date = date("y-m-d");
+    $date = "2001-09-10";
 
     $q7 = "insert into topic (`id`,`name`,`date`,`description`,`creator`)  values('','".$topic_name."','".$date."','".$content."','".$_SESSION['username']."')"; 
     
