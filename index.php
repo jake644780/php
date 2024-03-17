@@ -41,13 +41,13 @@
                 $result = $conn->query($q8);
                 if (mysqli_num_rows($result) != 0) {
                     while($row = mysqli_fetch_assoc($result)){
-                        $id = $row['topic_id'];
+                        $tid = $row['topic_id'];
                         echo "<tr>";
-                        echo "<td><a href='topic.php?id=$id'>".$row['topic_id']."</a></td>";
-                        echo "<td>".$row['topic_name']."</td>";
-                        echo "<td>".$row['views']."</td>";
-                        echo "<td>".$row['topic_creator']."</td>";
-                        echo "<td>".$row['date']."</td>";
+                        echo "<td><a href='topic.php?id=$tid'>".$row['topic_id']."</td></a>";
+                        echo "<td><a href='topic.php?id=$tid'>".$row['topic_name']."</td></a>";
+                        echo "<td><a href='topic.php?id=$tid'>".$row['views']."</td></a>";
+                        echo "<td><a href='profile.php?id=$tid'>".$row['topic_creator']."</td></a>";
+                        echo "<td><a href='topic.php?id=$tid'>".$row['date']."</td></a>";
                         echo "</tr>";
                     }
                 }
