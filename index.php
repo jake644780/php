@@ -46,7 +46,12 @@
                         echo "<td><a href='topic.php?id=$tid'>".$row['topic_id']."</td></a>";
                         echo "<td><a href='topic.php?id=$tid'>".$row['topic_name']."</td></a>";
                         echo "<td><a href='topic.php?id=$tid'>".$row['views']."</td></a>";
-                        echo "<td><a href='profile.php?id=$tid'>".$row['topic_creator']."</td></a>";
+                        $q11 = "select * from users where username='".$row['topic_creator']."'";
+                        $result_2 = $conn->query($q11);
+                        while ($rows = mysqli_fetch_assoc($result_2)){
+                            $creator = $rows['id'];
+                        }
+                        echo "<td><a href='profile.php?id=$creator'>".$row['topic_creator']."</td></a>";
                         echo "<td><a href='topic.php?id=$tid'>".$row['date']."</td></a>";
                         echo "</tr>";
                     }
