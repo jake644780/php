@@ -17,7 +17,7 @@
     <?php include("header.php"); ?>
     <body>
         <div class="content">
-            <a href="post.php"><button>Post topic</button></a>
+            <a href="post_topic.php"><button>Post topic</button></a>
             <?php echo '<table border="20px" style="border: 10px;">'?>
                 <tr>
                     <td>
