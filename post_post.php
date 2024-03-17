@@ -5,6 +5,9 @@
     } else{
         echo 'you must be logged in....<br><a href="login.php">login here</a> or <a href="register.php">register</a>';
     }
+
+    
+
 ?>
 
 <html>
@@ -12,12 +15,15 @@
         <title>3MinusPerfumes_Forum</title>
     </head>
     <body>
-    <?php include("header.php"); ?> <div class="content">
+    <?php 
+     
+    include("header.php"); ?> <div class="content">
         
-            <form action='post_topic.php' method='POST'>
+            <form action='post_post.php' method='POST'>
                 <br>Post name: <br><input type="text" name="post_name" style="width: 400px;"><br>
                 <br>Content: <br><textarea name="con" cols="30" rows="10" placeholder="type something..."></textarea><br>
-                <input type="submit" name="submit" value="Post" style="width: 300px;">
+                <input type="submit" name="submit" value="Post" style="width: 300px;"><br><br><br>
+                <input type="hidden" name="master_id" value="<?php echo $_GET['id']; ?>">
             </form>
     </div>
     </body>
@@ -25,19 +31,21 @@
 
 <?php
 if (isset($_POST['submit'])){
-    $topic_name = @$_POST['post_name'];
+    $master__id = $_POST['master_id'];
+    $post_name = @$_POST['post_name'];
     $content = @$_POST['con'];
     $date = date("y-m-d");
-    $q7 = "insert into posts (`topic_id`,`topic_name`,`topic_content`,`topic_creator`,`date`,`master_id`) values('','".$topic_name."','".$content."', '".$_SESSION['username']."', '".$date."', '/*topic id*/')"; 
+
+     
     if ($post_name && $content){
         if (strlen($post_name) > 6 && strlen($post_name) < 70){
             // Check if topic name already exists
-            $query = "SELECT * FROM posts WHERE topic_name = '$post_name'";
+            $query = "SELECT * FROM posts WHERE post_name='$post_name'";
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
-                echo "Topic name already exists. Please choose a different name.";
+                echo "Post with this name already exists. Please choose a different name.";
             } else {
-                $result = $conn->query($q7);
+                $result = $conn->query("INSERT INTO posts (`post_id`,`post_name`,`post_content`,`post_creator`,`date`,`master_id`) VALUES ('','".$post_name."','".$content."', '".$_SESSION['username']."', '".$date."', '".$master__id."')");
                 if ($result){
                     echo "success";
                 }

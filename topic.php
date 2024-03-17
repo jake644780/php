@@ -14,7 +14,12 @@
 
         <title>3MinusPerfumes_Forum</title>
     </head>
-    <?php include("header.php"); ?>
+    
+        <?php
+        
+             
+        include("header.php"); 
+        ?>
     <body>
         <div class="content">
             
@@ -55,22 +60,23 @@
                     </td>
                 </tr>
                 <br>
-                <a href="post_topic.php"><button>Post topic</button></a>
+                <?php
+                echo '<a href="post_post.php"><button>Post post</button></a>'; ?>
             <?php
-                $q8 = "select * from posts";
+                $q8 = "SELECT * FROM posts";
                 $result = $conn->query($q8);
                 if (mysqli_num_rows($result) != 0) {
                     while($row = mysqli_fetch_assoc($result)){
-                        $tid = $row['topic_id'];
+                        $tid = $row['post_id'];
                         echo "<tr>";
-                        echo "<td><a href='topic.php?id=$tid'>".$row['topic_id']."</td></a>";
-                        echo "<td><a href='topic.php?id=$tid'>".$row['topic_name']."</td></a>";
-                        $q11 = "select * from users where username='".$row['topic_creator']."'";
+                        echo "<td><a href='post.php?id=$tid'>".$row['post_id']."</td></a>";
+                        echo "<td><a href='post.php?id=$tid'>".$row['post_name']."</td></a>";
+                        $q11 = "select * from users where username='".$row['post_creator']."'";
                         $result_2 = $conn->query($q11);
                         while ($rows = mysqli_fetch_assoc($result_2)){
                             $creator = $rows['id'];
                         }
-                        echo "<td><a href='profile.php?id=$creator'>".$row['topic_creator']."</td></a>";
+                        echo "<td><a href='profile.php?id=$creator'>".$row['post_creator']."</td></a>";
                         echo "<td><a href='topic.php?id=$tid'>".$row['date']."</td></a>";
                         echo "</tr>";
                     }
