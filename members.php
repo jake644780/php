@@ -36,7 +36,7 @@ while ($row = mysqli_fetch_assoc($result)){
     echo "<a href='profile.php?id=$id'>".$row['username']."</a><br>";
 }
 
-echo "<a href='index.php'>PENISZ</a>";
+echo "<a href='index.php'><button class='thing'>PENISZ</button></a>";
 
 echo "</div>";
 ?>

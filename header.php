@@ -36,6 +36,11 @@ if ($_SESSION['username']){
         color: black;
         resize: none;
     }
+
+    .thing{
+        width: 500px;
+        height: 500px;
+    }
     </style>
 
 
