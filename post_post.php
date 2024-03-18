@@ -23,7 +23,6 @@
                 <br>Post name: <br><input type="text" name="post_name" style="width: 400px;"><br>
                 <br>Content: <br><textarea name="con" cols="30" rows="10" placeholder="type something..."></textarea><br>
                 <input type="submit" name="submit" value="Post" style="width: 300px;"><br><br><br>
-                <input type="hidden" name="master_id" value="<?php echo $_GET['id']; ?>">
             </form>
     </div>
     </body>
@@ -32,6 +31,7 @@
 <?php
 if (isset($_POST['submit'])){
     $master__id = $_POST['master_id'];
+    echo $master__id;
     $post_name = @$_POST['post_name'];
     $content = @$_POST['con'];
     $date = date("y-m-d");

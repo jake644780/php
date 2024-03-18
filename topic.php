@@ -11,19 +11,13 @@
 
 <html>
     <head>
-
         <title>3MinusPerfumes_Forum</title>
     </head>
-    
-        <?php
-        
-             
-        include("header.php"); 
-        ?>
+        <?php include("header.php"); ?>
     <body>
         <div class="content">
             
-        <?php
+        <?php  echo "<img src='def.jpg'>";
         $q9 = "select * from topic where id='".$_GET['id']."'";
         if($_GET['id']){
             $result = $conn->query($q9);
@@ -31,18 +25,14 @@
                 while ($row = mysqli_fetch_assoc($result)){
                     $q10 = "select * from users where username='".$row['creator']."'";
                     $result2 = $conn->query($q10);
-                    while ($row2 = mysqli_fetch_assoc($result2)){
-                        $user_id = $row2['id'];
-                    }
+                    while ($row2 = mysqli_fetch_assoc($result2)) $user_id = $row2['id'];
+                    
                     echo "<h1>".$row['name']."</h1><br>";
-                    echo "<h5> By: <a href='profile.php?id=$user_id'><i>".$row['creator']."</i></a></h5><br><br>";
+                    echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>".$row['creator']."</i></a></h5><br><br>";
                     echo $row['description'];
                 }
             } else echo "topic not found";
-
-        }else{
-            echo "topic not found";
-        }
+        } else echo "topic not found";
         ?>
         <?php echo '<table border="20px" style="border: 10px;">'?>
                 <tr>
@@ -61,9 +51,10 @@
                 </tr>
                 <br>
                 <?php
-                echo '<a href="post_post.php"><button>Post post</button></a>'; ?>
+                echo '<a href="post_post.php?master_id="'.$_POST['id'].'"><button>Post post</button></a>'; ?>
+                
             <?php
-                $q8 = "SELECT * FROM posts";
+                $q8 = "SELECT * FROM posts WHERE master_id='".$_GET['id']."'";
                 $result = $conn->query($q8);
                 if (mysqli_num_rows($result) != 0) {
                     while($row = mysqli_fetch_assoc($result)){
