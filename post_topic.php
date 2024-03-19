@@ -39,7 +39,6 @@ if (isset($_POST['submit'])){
                 echo "Topic name already exists. Please choose a different name.";
             } else {
                 $result = $conn->query($q7);
-                echo $result;
                 if ($result){
                     echo "success";
                 }
