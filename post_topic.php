@@ -29,11 +29,11 @@ if (isset($_POST['submit'])){
     $content = @$_POST['con'];
     $date = "2001-09-10";
 
-    $q7 = "insert into topic (`id`,`name`,`date`,`description`,`creator`)  values('','".$topic_name."','".$date."','".$content."','".$_SESSION['username']."')"; 
+    $q7 = "insert into topic (`topic_id`,`topic_name`,`date`,`description`,`topic_creator`)  values('','".$topic_name."','".$date."','".$content."','".$_SESSION['username']."')"; 
     
     if ($topic_name && $content){
         if (strlen($topic_name) > 6 && strlen($topic_name) < 70){
-            $query = "select * from topic where name='".$topic_name."'";
+            $query = "select * from topic where topic_name='".$topic_name."'";
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
                 echo "Topic name already exists. Please choose a different name.";

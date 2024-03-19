@@ -53,6 +53,7 @@
                 <br>
                 <?php
                 echo '<a href="post_post.php?master_id='.$_GET['id'].'"><button>Post post</button></a>';
+                echo '<a href="index.php"><button>Go back</button></a>';
                 ?>
                 
             <?php

@@ -6,9 +6,14 @@
         echo 'you must be logged in....<br><a href="login.php">login here</a> or <a href="register.php">register</a>';
     }
     
-    $master_id = isset($_GET['master_id']);
+    /*$master_id = isset($_GET['master_id']);
     echo $master_id;
-
+    */
+    if (isset($_GET['master_id'])) {
+        $master_id = $_GET['master_id'];
+    } else {
+        echo "something went wrong...";
+    }
     
 
 ?>
@@ -51,7 +56,6 @@ if (isset($_POST['submit'])){
                 $result = $conn->query("INSERT INTO posts (`post_id`,`post_name`,`post_content`,`post_creator`,`date`,`master_id`) VALUES ('','".$post_name."','".$content."', '".$_SESSION['username']."', '".$date."', '".$master_id."')");
                 if ($result){
                     echo "success";
-                    header('location:topic.php?id='.$master_id);
                 }
             }
         } else echo "name has to be atleast 6 chars long and less than 70";
