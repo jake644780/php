@@ -6,7 +6,8 @@
         echo 'you must be logged in....<br><a href="login.php">login here</a> or <a href="register.php">register</a>';
     }
 
-
+    $master_id = isset($_GET['master_id']);
+    echo $master_id;
 ?>
 
 <html>
@@ -18,7 +19,7 @@
         <div class="content">
             
         <?php  echo "<img src='def.jpg'>";
-        $q9 = "select * from topic where id='".$_GET['id']."'";
+        $q9 = "select * from topic where topic_id='".$_GET['id']."'";
         if($_GET['id']){
             $result = $conn->query($q9);
             if (mysqli_num_rows($result)){
@@ -27,8 +28,8 @@
                     $result2 = $conn->query($q10);
                     while ($row2 = mysqli_fetch_assoc($result2)) $user_id = $row2['id'];
                     
-                    echo "<h1>".$row['name']."</h1><br>";
-                    echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>".$row['creator']."</i></a></h5><br><br>";
+                    echo "<h1>".$row['topic_name']."</h1><br>";
+                    echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>".$row['topic_creator']."</i></a></h5><br><br>";
                     echo $row['description'];
                 }
             } else echo "topic not found";
@@ -51,7 +52,8 @@
                 </tr>
                 <br>
                 <?php
-                echo '<a href="post_post.php?master_id="'.$_POST['id'].'"><button>Post post</button></a>'; ?>
+                echo '<a href="post_post.php?master_id='.$_GET['id'].'"><button>Post post</button></a>';
+                ?>
                 
             <?php
                 $q8 = "SELECT * FROM posts WHERE master_id='".$_GET['id']."'";
