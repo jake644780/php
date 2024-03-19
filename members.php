@@ -16,7 +16,7 @@
     </head>
     <body>
     <?php include("header.php"); 
-    echo "<a href='index.php'><button class='thing'>PENISZ</button></a>";
+    
 
     ?>
     </body>

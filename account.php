@@ -25,8 +25,6 @@
                 $username = $row['username'];
                 $email = $row['email'];
                 $date = $row['date'];
-                $replies = $row['replies'];
-                $score = $row['score'];
                 $topics = $row['topics'];
             }
             
@@ -35,8 +33,6 @@
                     <b>Username:</b> <?php echo $username;?> <br>
                     <b>Email:</b> <?php echo $email;?><br>
                     <b>Date registered:</b> <?php echo $date;?><br>
-                    <b>Replies:</b> <?php echo $replies;?><br>
-                    <b>Score:</b> <?php echo $score;?><br>
                     <b>Topics: </b><?php echo $topics;?><br><br>
                     <a href="account.php?action=changepass">Change password</a><br><br>
                     <a href="account.php?action=ci">Change Profile pic</a>

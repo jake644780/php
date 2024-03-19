@@ -18,7 +18,7 @@
     <body>
         <div class="content">
             
-        <?php  echo "<img src='def.jpg'>";
+        <?php 
         $q9 = "select * from topic where topic_id='".$_GET['id']."'";
         if($_GET['id']){
             $result = $conn->query($q9);
@@ -36,8 +36,8 @@
                 }
             } else echo "topic not found";
         } else echo "topic not found";
-        ?>
-        <?php echo '<table border="20px" style="border: 10px;">'?>
+
+         echo '<table border="20px" style="border: 10px;">'?>
                 <tr>
                     <td>
                          <span>ID</span>
@@ -56,24 +56,28 @@
                 <?php
                 echo '<a href="post_post.php?master_id='.$_GET['id'].'"><button>Post post</button></a>';
                 echo '<a href="index.php"><button>Go back</button></a>';
-                ?>
                 
-            <?php
                 $q8 = "SELECT * FROM posts WHERE master_id='".$_GET['id']."'";
                 $result = $conn->query($q8);
                 if (mysqli_num_rows($result) != 0) {
                     while($row = mysqli_fetch_assoc($result)){
-                        $tid = $row['post_id'];
+                        $edit_button = 0;
+                        $pid = $row['post_id'];
                         echo "<tr>";
-                        echo "<td><a href='post.php?id=$tid'>".$row['post_id']."</td></a>";
-                        echo "<td><a href='post.php?id=$tid'>".$row['post_name']."</td></a>";
+                        echo "<td><a href='post.php?id=$pid'>".$row['post_id']."</td></a>";
+                        echo "<td><a href='post.php?id=$pid'>".$row['post_name']."</td></a>";
                         $q11 = "select * from users where username='".$row['post_creator']."'";
                         $result_2 = $conn->query($q11);
                         while ($rows = mysqli_fetch_assoc($result_2)){
                             $creator = $rows['id'];
+                            if ($rows['username'] == $_SESSION['username']) $edit_button = 1;
                         }
-                        echo "<td><a href='profile.php?id=$creator'>".$row['post_creator']."</td></a>";
-                        echo "<td><a href='topic.php?id=$tid'>".$row['date']."</td></a>";
+                        if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['post_creator']."</td></a>";
+                        else{
+                                echo "<td><a href='post.php?id=".$row['post_id']."'> you (EDIT)</td></a>";
+                        }
+
+                        echo "<td><a href='post.php?id=$pid'>".$row['date']."</td></a>";
                         echo "</tr>";
                     }
                 } else echo " not found";

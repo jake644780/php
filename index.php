@@ -51,7 +51,7 @@
                         }
                         if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['topic_creator']."</td></a>";
                         else{
-                                echo "<td><a href='post.php?id=".$row['topic_id']."'> EDIT </td></a>";
+                                echo "<td><a href='post.php?id=".$row['topic_id']."'> you (EDIT) </td></a>";
                         }
 
                         echo "<td><a href='topic.php?id=$tid'>".$row['date']."</td></a>";
