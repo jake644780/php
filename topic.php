@@ -24,18 +24,18 @@
         <div class="content">
             
         <?php
-        $q9 = "select * from topic where id='".$_GET['id']."'";
+        $q9 = "select * from topic where topic_id='".$_GET['id']."'";
         if($_GET['id']){
             $result = $conn->query($q9);
             if (mysqli_num_rows($result)){
                 while ($row = mysqli_fetch_assoc($result)){
-                    $q10 = "select * from users where username='".$row['creator']."'";
+                    $q10 = "select * from users where username='".$row['topic_creator']."'";
                     $result2 = $conn->query($q10);
                     while ($row2 = mysqli_fetch_assoc($result2)){
                         $user_id = $row2['id'];
                     }
-                    echo "<h1>".$row['name']."</h1><br>";
-                    echo "<h5> By: <a href='profile.php?id=$user_id'><i>".$row['creator']."</i></a></h5><br><br>";
+                    echo "<h1>".$row['topic_name']."</h1><br>";
+                    echo "<h5> By: <a href='profile.php?id=$user_id'><i>".$row['topic_creator']."</i></a></h5><br><br>";
                     echo $row['description'];
                 }
             } else echo "topic not found";
@@ -61,7 +61,8 @@
                 </tr>
                 <br>
                 <?php
-                echo '<a href="post_post.php"><button>Post post</button></a>'; ?>
+                echo '<a href="post_post.php?master_id='.$_GET["id"].'"><button>Post post</button></a>';
+                 ?>
             <?php
                 $q8 = "SELECT * FROM posts";
                 $result = $conn->query($q8);

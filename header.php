@@ -52,7 +52,7 @@ if ($_SESSION['username']){
             echo "logged in as <a href='profile.php?id=$id'>"; 
             echo $_SESSION['username']; 
             echo "</a> |"; ?> 
-    | <a href="webshop.php">webshop</a> 
+    | <a href="https://www.youtube.com/watch?v=j5a0jTc9S10&ab_channel=YourUncleMoe">webshop</a> 
     | <a href="account.php">my account</a> 
     | <a href="index.php?action=logout">logout</a>
 </div>
