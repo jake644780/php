@@ -15,7 +15,10 @@
         <title>Home page</title>
     </head>
     <body>
-    <?php include("header.php"); ?>
+    <?php include("header.php"); 
+    echo "<a href='index.php'><button class='thing'>PENISZ</button></a>";
+
+    ?>
     </body>
 </html>
 
@@ -35,5 +38,7 @@ while ($row = mysqli_fetch_assoc($result)){
     $id = $row['id'];
     echo "<a href='profile.php?id=$id'>".$row['username']."</a><br>";
 }
+
+
 echo "</div>";
 ?>
