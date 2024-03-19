@@ -24,11 +24,13 @@
             $result = $conn->query($q9);
             if (mysqli_num_rows($result)){
                 while ($row = mysqli_fetch_assoc($result)){
+                    $by_me = 0;
                     $q10 = "select * from users where username='".$row['topic_creator']."'";
                     $result2 = $conn->query($q10);
                     while ($row2 = mysqli_fetch_assoc($result2)) $user_id = $row2['id'];
-                    
                     echo "<h1>".$row['topic_name']."</h1><br>";
+                    if ($_SESSION['username'] == $row['topic_creator']) echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>Me</i></a></h5><br><br>";
+                    else 
                     echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>".$row['topic_creator']."</i></a></h5><br><br>";
                     echo $row['description'];
                 }

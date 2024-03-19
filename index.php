@@ -38,6 +38,7 @@
                 $result = $conn->query($q8);
                 if (mysqli_num_rows($result) != 0) {
                     while($row = mysqli_fetch_assoc($result)){
+                        $edit_button = 0;
                         $tid = $row['topic_id'];
                         echo "<tr>";
                         echo "<td><a href='topic.php?id=$tid'>".$row['topic_id']."</td></a>";
@@ -46,8 +47,13 @@
                         $result_2 = $conn->query($q11);
                         while ($rows = mysqli_fetch_assoc($result_2)){
                             $creator = $rows['id'];
+                            if ($rows['username'] == $_SESSION['username']) $edit_button = 1;
                         }
-                        echo "<td><a href='profile.php?id=$creator'>".$row['topic_creator']."</td></a>";
+                        if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['topic_creator']."</td></a>";
+                        else{
+                                echo "<td><a href='post.php?id=".$creator."'> EDIT </td></a>";
+                        }
+
                         echo "<td><a href='topic.php?id=$tid'>".$row['date']."</td></a>";
                         echo "</tr>";
                     }
