@@ -42,7 +42,8 @@
                 $resulty = $conn->query($q4);
                 $rowss = mysqli_num_rows($resulty); 
                 while ($rowsss = mysqli_fetch_assoc($resulty)) {
-                    $com_id = $rowsss['id']; 
+                    $com_id = $rowsss['id'];
+                    $com_crea =  $rowsss['username'];
                 }
                 if (@$_GET['action'] == "co"){
                     echo '<div class="content">
@@ -55,7 +56,7 @@
                 }
                 $comment_value = @$_POST['co_cont'];
                 $date = date('y-m-d');
-                $q14 = "INSERT INTO comments (`comment_id`,`comment_content`,`comment_creator`,`master_id`,`date`) VALUES ('','".$comment_value."','".$com_id."','".$_GET['id']."','".$date."')";
+                $q14 = "INSERT INTO comments (`comment_id`,`comment_content`,`comment_creator`,`master_id`,`date`) VALUES ('','".$comment_value."','".$com_crea."','".$_GET['id']."','".$date."')";
                 if (!empty($comment_value)){
                     $result = $conn->query($q14);
                     echo "succcess";
@@ -63,26 +64,33 @@
                 echo '<table border="20px" style="border: 10px;">'?>
                 <tr><td><span>ID</span></td><td style="width: 400px;">Comment</td><td style="width: 80px;">Creator</td><td style="width: 80px;">Date</td></tr>
                 <br>
-                <?php
-                $q15 = "SELECT * FROM comments WHERE master_id=$com_id";
-                $resulter = $conn->query($q15);
-                while ($rowing = mysqli_fetch_assoc($resulter)){
-                    echo "<td>".$rowing['comment_id']."</td>";
-                    echo "<td>".$rowing['comment_content']."</td>";
-                    $q11 = "select * from users where username='".$row['topic_creator']."'";
-                    $result_2 = $conn->query($q11);
-                    $delete_button = 0;
-                    while ($rows = mysqli_fetch_assoc($result_2)){
-                        $creator = $rows['id'];
-                        if ($rows['username'] == $_SESSION['username']) $delete_button = 1;
-                    }
-                    if ($delete_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['comment_creator']."</td></a>";
-                    else{
-                            echo "<td><a href='post.php?action=del'> you(DELETE) </td></a>";
-                    }
-                    echo "<td>".$rowing['date']."</td>";
 
-                }
+                <?php
+               $q8 = "SELECT * FROM comments WHERE master_id='".$_GET['id']."'";
+               $result = $conn->query($q8);
+               if (mysqli_num_rows($result) != 0) {
+                   while($row = mysqli_fetch_assoc($result)){
+                       $edit_button = 0;
+                       $pid = $row['comment_id'];
+                       echo "<tr>";
+                       echo "<td>".$row['comment_id']."</td>";
+                       echo "<td>".$row['comment_content']."</td>";
+                       $q11 = "select * from users where username='".$row['comment_creator']."'";
+                       $result_2 = $conn->query($q11);
+                       while ($rows = mysqli_fetch_assoc($result_2)){
+                           $creator = $rows['id'];
+                           if ($rows['username'] == $_SESSION['username']) $edit_button = 1;
+                       }
+                       if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['comment_creator']."</td></a>";
+                       else{
+                               echo "<td><a href='post.php?id=".$row['comment_id']."'> you (EDIT)</td></a>";
+                       }
+
+                       echo "<td>".$row['date']."</td>";
+                       echo "</tr>";
+                   }
+               } else echo " not found";
+               echo"</table>";
             ?>
         </div>
 
