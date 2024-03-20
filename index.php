@@ -51,7 +51,7 @@
                         }
                         if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['topic_creator']."</td></a>";
                         else{
-                                echo "<td><a href='post.php?id=".$row['topic_id']."'> you (EDIT) </td></a>";
+                                echo "<td><a href='index.php?id=".$row['topic_id']."&action=del'> you (DELETE) </td></a>";
                         }
 
                         echo "<td><a href='topic.php?id=$tid'>".$row['date']."</td></a>";
@@ -71,4 +71,19 @@ if (@$_GET['action'] == 'logout'){
     session_destroy();
     header("location: login.php");
 }
+
+    if (@$_GET['action'] == "del"){
+        echo '<script type="text/javascript">
+            var confirmBox = confirm("Are you sure you want to delete this topic?");
+            if (confirmBox == true) {
+                ';
+                $q_del = "DELETE FROM topic WHERE topic_id='".$_GET['id']."'";
+                $result_del = $conn->query($q_del);
+                echo '
+            } else {
+                // User clicked the Cancel button in the confirm box
+            }
+        </script>';
+    }
 ?>
+
