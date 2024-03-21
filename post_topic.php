@@ -27,7 +27,7 @@
 if (isset($_POST['submit'])){
     $topic_name = @$_POST['topic_name'];
     $content = @$_POST['con'];
-    $date = "2001-09-10";
+    $date = date("y-m-d");
 
     $q7 = "insert into topic (`topic_id`,`topic_name`,`date`,`description`,`topic_creator`)  values('','".$topic_name."','".$date."','".$content."','".$_SESSION['username']."')"; 
     
@@ -41,6 +41,7 @@ if (isset($_POST['submit'])){
                 $result = $conn->query($q7);
                 if ($result){
                     echo "success";
+                    header("Location:index.php");
                 }
             }
         } else echo "name has to be atleast 6 chars long and less than 70";

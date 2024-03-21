@@ -16,6 +16,32 @@
     </head>
     <?php include("header.php"); ?>
     <body>
+        <style>
+        button {
+            font-size: 1em;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 9px #999;
+            transition: all 0.3s;
+            margin-bottom: 50px;
+        }
+
+        button:hover {
+            background-color: #0069D9;
+        }
+
+        button:active {
+            background-color: #0062CC;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
+        table{
+            border: gold 2px solid;
+        }
+        </style>
         <div class="content">
             <a href="post_topic.php"><button>Post topic</button></a>
             <?php echo '<table border="20px" style="border: 10px;">'?>
@@ -79,9 +105,10 @@ if (@$_GET['action'] == 'logout'){
                 ';
                 $q_del = "DELETE FROM topic WHERE topic_id='".$_GET['id']."'";
                 $result_del = $conn->query($q_del);
+                
                 echo '
             } else {
-                // User clicked the Cancel button in the confirm box
+                
             }
         </script>';
     }
