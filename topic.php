@@ -29,33 +29,34 @@
                     $result2 = $conn->query($q10);
                     while ($row2 = mysqli_fetch_assoc($result2)) $user_id = $row2['id'];
                     echo "<h1>".$row['topic_name']."</h1><br>";
-                    if ($_SESSION['username'] == $row['topic_creator']) echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>Me</i></a></h5><br><br>";
+                    if ($_SESSION['username'] == $row['topic_creator']) echo "<h5> készítette: <a href='profile.php?id=".$user_id."'><i>Me</i></a></h5><br><br>";
                     else 
                     echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>".$row['topic_creator']."</i></a></h5><br><br>";
-                    echo $row['description'];
+                    echo "<h2>Description</h2>";
+                    echo "<p>".$row['description']."</p>";
                 }
             } else echo "topic not found";
         } else echo "topic not found";
 
          echo '<table border="20px" style="border: 10px;">'?>
                 <tr>
-                    <td>
+                    <th style="width: 50px;">
                          <span>ID</span>
-                    </td>
-                    <td style="width: 400px;">
+                    </th>
+                    <th style="width: 400px;">
                         Name
-                    </td>
-                    <td style="width: 80px;">
+                    </th>
+                    <th style="width: 80px;">
                         Creator
-                    </td>
-                    <td style="width: 80px;">
+                    </th>
+                    <th style="width: 100px;">
                         Date
-                    </td>
+                    </th>
                 </tr>
                 <br>
                 <?php
-                echo '<a href="post_post.php?master_id='.$_GET['id'].'"><button>Post post</button></a>';
-                echo '<a href="index.php"><button>Go back</button></a>';
+                echo '<br><a href="post_post.php?master_id='.$_GET['id'].'"><button>Post post</button></a>';
+                echo '<br><a href="index.php"><button>Go back</button></a>';
                 
                 $q8 = "SELECT * FROM posts WHERE master_id='".$_GET['id']."'";
                 $result = $conn->query($q8);

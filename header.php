@@ -5,25 +5,105 @@ if ($_SESSION['username']){
 
 <html>
     <style>
-        .content{
+
+    *{
+            box-sizing: border-box;
+    }
+    .content{
             margin: auto;
             width: 50%;
             text-align: center;
-        }
-        body {
-    background-image: url("src/bg.png");
-
-    /* Set a specific height */
-    min-height: 100vh;
-    overflow-x: hidden;
-
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: wheat;
+    }
+    body {
+        background-image: url("src/bg.png");
+        min-height: 100vh;
+        overflow-x: hidden;
+        background-attachment: fixed;
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        color: wheat;
     
     } 
+
+    h1, h2{
+        text-decoration: underline;
+        font-style: italic;
+    }
+
+    h5{
+        font-size: larger;
+        border-top: #666 3px dashed;
+    }
+
+    p{
+        color: wheat;
+        font-size: larger;
+        border: #111 solid 5px;
+        padding-left: auto;
+        padding-right: auto;
+        padding-top: none;
+        padding-bottom: 300px;
+        text-align: justify;
+    }
+    table{
+            border-collapse: collapse;
+            min-width: 1000px;
+            margin: 25px 0;
+            font-size: 1.9em;
+            margin: auto;
+            padding-right: 20px;
+            border-radius: 10px ;
+            overflow: hidden;
+            text-align: center;
+        }
+        tbody a:hover{
+            color: wheat;
+        }
+        tbody tr{
+            border-bottom: 1px solid #dddddd;
+            
+        }
+
+        tbody tr:nth-of-type(even){
+            background-color: white;
+        }
+
+        
+        tbody tr:nth-of-type(odd){
+            background-color: #111;
+        }
+
+        th{
+            padding: 12px 15px;
+        }
+
+        th{
+            background-color: beige;
+            color: black;
+        }
+
+    button {
+            font-size: 1em;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007BFF;
+            border: none;
+            border-radius: 5px;
+            box-shadow: 0 9px #999;
+            transition: all 0.3s;
+            margin-bottom: 50px;
+        }
+
+        button:hover {
+            background-color: #0069D9;
+        }
+
+        button:active {
+            background-color: #0062CC;
+            box-shadow: 0 5px #666;
+            transform: translateY(4px);
+        }
 
     a {
         text-decoration: none;
