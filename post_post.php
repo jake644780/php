@@ -56,7 +56,7 @@ if (isset($_POST['submit'])){
                 $result = $conn->query("INSERT INTO posts (`post_id`,`post_name`,`post_content`,`post_creator`,`date`,`master_id`) VALUES ('','".$post_name."','".$content."', '".$_SESSION['username']."', '".$date."', '".$master_id."')");
                 if ($result){
                     echo "success";
-                    header("Location: topic.php?id=".$master_id);
+                    
 
                 }
             }

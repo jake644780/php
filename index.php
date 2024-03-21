@@ -1,4 +1,5 @@
 <?php
+ob_start();
     session_start();
     require('connect.php');
     if (@$_SESSION["username"]){
@@ -74,7 +75,9 @@
 if (@$_GET['action'] == 'logout'){
     session_destroy();
     header("location: login.php");
+    exit;
 }
+
 
     if (@$_GET['action'] == "del"){
         echo '<script type="text/javascript">
@@ -90,5 +93,6 @@ if (@$_GET['action'] == 'logout'){
             }
         </script>';
     }
+    ob_end_flush();
 ?>
 

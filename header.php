@@ -26,25 +26,50 @@ if ($_SESSION['username']){
     
     } 
 
+    .prof_pic{
+        border-radius: 50%;
+        height: 500px;
+        width: 500px;
+        float: left;
+        margin-right: 20px;
+        width: 100px; /* Adjust as needed */
+        height: auto; /* This will maintain the aspect ratio */
+        object-fit: cover;
+        margin-bottom: 50px;
+    }
+
+    h1{
+        padding: 40px 40px;
+        border: gold 5px solid;
+        background-color: grey;
+    }
+
     h1, h2{
         text-decoration: underline;
         font-style: italic;
+        border-radius: 30px;
+    }
+    h2{
+        text-align: left;
     }
 
     h5{
         font-size: larger;
         border-top: #666 3px dashed;
+        text-align: left;
     }
 
     p{
-        color: wheat;
+        color: black;
         font-size: larger;
         border: #111 solid 5px;
         padding-left: auto;
         padding-right: auto;
         padding-top: none;
-        padding-bottom: 300px;
+        padding-bottom: 200px;
         text-align: justify;
+        clear: both;
+        background-color: beige;
     }
     table{
             border-collapse: collapse;
@@ -56,6 +81,7 @@ if ($_SESSION['username']){
             border-radius: 10px ;
             overflow: hidden;
             text-align: center;
+            text-shadow: 1px 1px 0.1em black;
         }
         tbody a:hover{
             color: wheat;
@@ -93,6 +119,10 @@ if ($_SESSION['username']){
             box-shadow: 0 9px #999;
             transition: all 0.3s;
             margin-bottom: 50px;
+        }
+
+        .righter{
+            transform: translateX(30px);
         }
 
         button:hover {

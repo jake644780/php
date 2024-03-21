@@ -1,4 +1,5 @@
 <?php
+ob_start();
     session_start();
     require('connect.php');
     if (@$_SESSION["username"]){
@@ -19,6 +20,7 @@
         <div class="content">
             
         <?php 
+        
         $q9 = "select * from topic where topic_id='".$_GET['id']."'";
         if($_GET['id']){
             $result = $conn->query($q9);
@@ -27,12 +29,18 @@
                     $by_me = 0;
                     $q10 = "select * from users where username='".$row['topic_creator']."'";
                     $result2 = $conn->query($q10);
-                    while ($row2 = mysqli_fetch_assoc($result2)) $user_id = $row2['id'];
+                    while ($row2 = mysqli_fetch_assoc($result2)) {
+                        $user_id = $row2['id'];
+                        $prof_picy= $row2['profile_pic'];
+                    }
                     echo "<h1>".$row['topic_name']."</h1><br>";
-                    if ($_SESSION['username'] == $row['topic_creator']) echo "<h5> készítette: <a href='profile.php?id=".$user_id."'><i>Me</i></a></h5><br><br>";
+                    echo "<img class='prof_pic' src='".$prof_picy."' width='70' height='70'>";
+                    if ($_SESSION['username'] == $row['topic_creator']) echo "<h5><a href='profile.php?id=".$user_id."'><i>Én</i></a></h5><br><br>";
                     else 
-                    echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>".$row['topic_creator']."</i></a></h5><br><br>";
-                    echo "<h2>Description</h2>";
+                    echo "<h5> Készítette: <a href='profile.php?id=".$user_id."'><i>".$row['topic_creator']."   ".$row['date']."</i></a> </h5><br><br>";
+                    echo '<a href="post_post.php?master_id='.$_GET['id'].'"><button>Post post</button></a>';
+                    echo '<a href="index.php"><button class="righter">Go back</button></a>';
+                    echo "<h2>Leírás:</h2>";
                     echo "<p>".$row['description']."</p>";
                 }
             } else echo "topic not found";
@@ -55,8 +63,8 @@
                 </tr>
                 <br>
                 <?php
-                echo '<br><a href="post_post.php?master_id='.$_GET['id'].'"><button>Post post</button></a>';
-                echo '<br><a href="index.php"><button>Go back</button></a>';
+                
+                echo '<br><h2 style="text-align:center;">Posztok</h2>';
                 
                 $q8 = "SELECT * FROM posts WHERE master_id='".$_GET['id']."'";
                 $result = $conn->query($q8);
@@ -75,7 +83,7 @@
                         }
                         if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['post_creator']."</td></a>";
                         else{
-                                echo "<td><a href='post.php?id=".$row['post_id']."'> you (EDIT)</td></a>";
+                                echo "<td><a href='topic.php?id=".$row['post_id']."&action=del'> you(DELETE)</td></a>";
                         }
 
                         echo "<td><a href='post.php?id=$pid'>".$row['date']."</td></a>";
@@ -90,9 +98,28 @@
     </body>
 </html>
 
+
 <?php
+if(@$_GET['action']=="del"){
+  $confirm = isset($_GET['confirm']) ? $_GET['confirm'] : 'no';
+  if($confirm == 'yes'){
+    $q_del="DELETE FROM posts WHERE post_id='".$_GET['id']."'";
+    $result_del=$conn->query($q_del);
+    header("Location:index.php");
+  } else {
+    echo '<script type="text/javascript">
+      var confirmBox = confirm("Are you sure you want to delete this topic?");
+      if(confirmBox == true){
+        window.location.href = "topic.php?id='.$_GET['id'].'&action=del&confirm=yes";
+      }
+    </script>';
+  }
+}
+
 if (@$_GET['action'] == 'logout'){
     session_destroy();
     header("location: login.php");
 }
+ob_end_flush();
+
 ?>

@@ -83,7 +83,7 @@
                        }
                        if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['comment_creator']."</td></a>";
                        else{
-                               echo "<td><a href='post.php?id=".$row['comment_id']."'> you (EDIT)</td></a>";
+                               echo "<td><a href='post.php?id=".$row['comment_id']."&action=del'> you (DELETE)</td></a>";
                        }
 
                        echo "<td>".$row['date']."</td>";
@@ -99,6 +99,21 @@
 </html>
 
 <?php
+
+if (@$_GET['action'] == "del"){
+    echo '<script type="text/javascript">
+        var confirmBox = confirm("Are you sure you want to delete this topic?");
+        if (confirmBox == true) {
+            ';
+            $q_del = "DELETE FROM comments WHERE comment_id='".$_GET['id']."'";
+            $result_del = $conn->query($q_del);
+            header("Location:index.php");
+            echo '
+        } else {
+            
+        }
+    </script>';
+}
 if (@$_GET['action'] == 'logout'){
     session_destroy();
     header("location: login.php");
