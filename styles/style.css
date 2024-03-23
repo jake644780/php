@@ -12,6 +12,11 @@
     display: block;
 }
 
+.logo-footer {
+    width: 230px;
+    float: left;
+}
+
 .nav-center {
     margin: auto;
     display: block;
@@ -164,6 +169,16 @@ body {
     margin-top: 140px;
     box-shadow: 0px 0px 15px black;
     font-family: 'Montserrat', sans-serif;
+    padding-bottom: 40px;
+}
+
+.content-area-dark {
+    background-color: #202020;
+    margin-top: 140px;
+    box-shadow: 0px 0px 15px black;
+    font-family: 'Montserrat', sans-serif;
+    padding-bottom: 40px;
+    color: whitesmoke;
 }
 
 .content-area-inner {
@@ -178,6 +193,7 @@ body {
     box-shadow: 3px 0px 15px rgb(160, 160, 160);
     background-color: white;
     padding: 20px 40px 20px 40px;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .caption-h3 {
@@ -185,9 +201,6 @@ body {
     text-align: left;
 }
 
-.sidebar {
-    font-family: 'Montserrat', sans-serif;
-}
 
 /* ------------- SLIDER --------------- */
 
@@ -262,7 +275,7 @@ input::-webkit-inner-spin-button {
     top: -5px; 
     pointer-events: none; 
     cursor: pointer; 
-    /*-webkit-appearance: none;*/
+    -webkit-appearance: none;
 } 
   
 #input-center {
@@ -318,7 +331,7 @@ input[type="range"]::-webkit-slider-thumb {
     width: 250px;
     padding: 20px;
     margin: 20px;
-    float: right;
+    display: inline-block;
     box-shadow: 3px 0px 13px rgba(0, 0, 0, 0.23); ;
     border-radius: 10px;
     font-family: 'Montserrat', sans-serif;
@@ -346,6 +359,42 @@ input[type="range"]::-webkit-slider-thumb {
 
 .pr-card-container {
     padding: 20px;
+}
+
+.forumbtn {
+    height: 40px;
+    background-color: #886e36;
+    color: white;
+    font-size: .95em;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 15px 0 15px;
+}
+
+.backbtn {
+    height: 40px;
+    background-color: #333;
+    color: white;
+    font-size: .95em;
+    cursor: pointer;
+    overflow: hidden;
+    outline: none;
+    border: none;
+    border-radius: 10px;
+    font-family: 'Montserrat', sans-serif;
+    font-weight: bold;
+    margin: 0;
+    padding: 0 15px 0 15px;
+}
+
+.backbtn:hover {
+    background-color: #555;
 }
 
 .cartbtn {
@@ -648,8 +697,20 @@ input[type="range"]::-webkit-slider-thumb {
 
 
 .primg{
-    width: 100%;
+    max-width: 100%;
+    max-height: 600px;
+    width: auto;
+    height: auto;
     display: block;
+    object-fit: cover;
+}
+.primg2{
+    max-width: 100%;
+    max-height: 600px;
+    width: auto;
+    height: auto;
+    display: block;
+    object-fit:contain;
 }
 .primg-small {
     height: 100px;
@@ -965,11 +1026,7 @@ input[type="checkbox"] {
     margin: 10px 0 0 20px;
 }
 
-*, *::before, *::after{
-    padding: 0;
-    margin: 0;
-    box-sizing: border-box;
-  }
+
 
 
 
@@ -1117,6 +1174,103 @@ input[type="checkbox"] {
     } 
 }
 
+
+/* ------------------------------- CAROUSEL ---------------------------------- */
+
+.wrapper3 { 
+    max-width: 1600px; 
+    width: 100%; 
+    position: relative; 
+    margin: 40px auto 0 auto;
+} 
+  
+.wrapper3 i { 
+    height: 50px; 
+    width: 50px; 
+    text-align: center; 
+    line-height: 50px; 
+    border-radius: 5%; 
+    cursor: pointer; 
+    position: absolute; 
+    top: 50%; 
+    font-size: 1.25 rem; 
+    transform: translateY(-50%); 
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.23); 
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+  
+} 
+  
+.wrapper3 i:first-child { 
+    left: -22px; 
+  
+} 
+  
+.wrapper3 i:last-child { 
+    right: -22px; 
+  
+} 
+  
+.wrapper3 .carousel3 { 
+    display: grid; 
+    grid-auto-flow: column; 
+    grid-auto-columns: calc((100% / 5) - 12px); 
+    gap: 15px; 
+    overflow-x: auto; 
+    scroll-snap-type: x mandatory; 
+    scroll-behavior: smooth; 
+    scrollbar-width: 0; 
+} 
+  
+.carousel3::-webkit-scrollbar { 
+    display: none; 
+} 
+  
+.carousel3 :where(.card, .img) { 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+} 
+  
+.carousel3.dragging { 
+    scroll-snap-type: none; 
+    scroll-behavior: auto; 
+} 
+  
+.carousel3.no-transition { 
+    scroll-behavior: auto; 
+} 
+  
+.carousel3.dragging .card { 
+    cursor: grab; 
+    user-select: none; 
+} 
+
+.carousel3 .card {
+    background-color: transparent;
+    border: none;
+}
+  
+
+  
+@media screen and (max-width: 900px) { 
+    .wrapper3 .carousel3 { 
+        grid-auto-columns: calc((100% / 2) - 9px); 
+  
+    } 
+} 
+  
+@media screen and (max-width: 600px) { 
+    .wrapper3 .carousel3 { 
+        grid-auto-columns: 100%; 
+  
+    } 
+}
+
+
+
+
 .section-inner {
     max-width: 1500px; 
 }
@@ -1157,9 +1311,209 @@ input[type="checkbox"] {
 }
 
 .footer {
+    width: 1200px;
+    display: block;
+    margin: 0 auto;
     padding: 40px 0 40px 0;
 }
 
-.content{
+.footer p {
+    color: #C9C9C9;
+    font-family: "Montserrat", sans-serif;
+}
+
+.footer-pbox {
+    float: left;
+}
+
+.footer-pbox p{
+    line-height: 1.2em;
+}
+
+.footer-list {
+    list-style-type: none;
+    color: #C9C9C9;
+    line-height: 1.2em;
     text-align: right;
+    font-family: "Montserrat", sans-serif;
+}
+
+.footer-list a:link {
+    color: #C9C9C9;
+    text-decoration: none;
+}
+
+.footer-list a:visited {
+    color: #C9C9C9;
+    text-decoration: none;
+}
+
+.footer-list a:hover {
+    color: whitesmoke;
+    text-decoration: none;
+}
+
+.footer-list a:active {
+    color: white;
+    text-decoration: none;
+}
+
+.forum-top-container {
+    padding: 15px;
+    color: whitesmoke;
+}
+
+
+.newtopic-btn {
+    float: right;
+}
+
+.table-topic {
+    width: 100%;
+    color: whitesmoke;
+    border-radius: 15px;
+}
+
+.table-topic th {
+    background-color: #000;
+    padding: 15px;
+}
+
+.table-topic tr {
+    box-shadow: 0px 0px 5px -2px black;
+}
+
+.table-topic tr:hover {
+    background-color: #555;
+}
+
+.table-topic td {
+    background-color: rgb(36, 36, 36);
+    padding: 20px 15px 20px 15px;
+}
+
+.table-topic a{
+    text-decoration: none;
+    color: whitesmoke;
+}
+
+.profilepic-small {
+    width: 30px;
+    border-radius: 50%;
+}
+
+.forum-title {
+    padding-top: 30px;
+    font-size: 2em;
+}
+
+.post-editor {
+    width: 800px;
+    margin: auto;
+}
+
+.post-editor input[type='text'] {
+    width: 100%;
+    background-color: rgb(36, 36, 36);
+    color: white;
+    border: 1px #555 solid;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+.post-editor input[type='text']:focus {
+    outline: none;
+    border: 1px rgb(131, 131, 131) solid;
+}
+
+
+.post-editor input[type='submit'] {
+    margin: 15px auto;
+    display: block;
+}
+
+.post-editor textarea {
+    width: 100%;
+    background-color: rgb(36, 36, 36);
+    color: white;
+    border: 1px #555 solid;
+    padding: 8px;
+    border-radius: 6px;
+}
+
+
+.post-editor textarea:focus {
+    outline: none;
+    border: 1px rgb(131, 131, 131) solid;
+}
+
+.profile-card {
+    margin-top: 40px;   
+    display: inline-block;
+
+}
+
+.profile-card2 {
+    margin-top: 10px;   
+}
+
+.profile-card img {
+    margin: 0 8px;
+    display: inline-block;
+}
+
+.profile-card h5 {
+    display: inline-block;
+
+}
+
+.profile-card a {
+    text-decoration: none;
+    color: whitesmoke;
+
+}
+
+.topic-desc {
+    margin: -5px 0 0 0;
+    color: #909090;
+}
+
+.btright {
+    float: right;
+}
+
+
+.table-posts {
+    width: 100%;
+    color: whitesmoke;
+    border-radius: 15px;
+}
+
+.post-main {
+    width: 90%;
+    background-color: rgb(41, 41, 41);
+    border-radius: 15px;
+    box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2);
+    padding: 20px;
+    margin: 0 auto;
+}
+
+.post-line {
+    background-color: #555;
+    border: none;
+    height: 1px;
+}
+
+.pc-post {
+    margin: 0;
+}
+
+.post-text {
+    font-size: 1.2em;
+}
+
+.post-date {
+    float: right;
+    font-size: 1.1em;
+    color: rgb(145, 145, 145);
 }

@@ -13,12 +13,31 @@ ob_start();
 
 <html>
     <head>
-        <title>3MinusPerfumes_Forum</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link href="https://fonts.cdnfonts.com/css/florentia" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Noto+Sans+Indic+Siyaq+Numbers&family=Roboto+Slab:wght@300&display=swap"
+    rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/style.css">
+
+<script src="https://kit.fontawesome.com/8cd5027783.js" crossorigin="anonymous"></script>
+
+        
     </head>
         <?php include("header.php"); ?>
     <body>
-        <div class="content">
-            
+        <div class="content-area-dark">
+            <div class="container">
+
         <?php 
         
         $q9 = "select * from topic where topic_id='".$_GET['id']."'";
@@ -33,38 +52,37 @@ ob_start();
                         $user_id = $row2['id'];
                         $prof_picy= $row2['profile_pic'];
                     }
-                    echo "<h1>".$row['topic_name']."</h1><br>";
-                    echo "<img class='prof_pic' src='".$prof_picy."' width='70' height='70'>";
-                    if ($_SESSION['username'] == $row['topic_creator']) echo "<h5><a href='profile.php?id=".$user_id."'><i>Én</i></a></h5><br><br>";
+                    echo "<title>".$row['topic_name']." | 3minus Forum</title>";
+                    echo "<div class='row'><div class='col-lg-10'><h4 class='forum-title'>".$row['topic_name']."</h4></div>";
+                    echo "<div class='col-lg-2'><div class='profile-card'><a href='profile.php?id=".$user_id."'><img class='profilepic-small' src='".$prof_picy."' >";
+                    if ($_SESSION['username'] == $row['topic_creator']) echo "<h5>Én </a></h5></div></div></div>";
                     else 
-                    echo "<h5> Készítette: <a href='profile.php?id=".$user_id."'><i>".$row['topic_creator']."   ".$row['date']."</i></a> </h5><br><br>";
-                    echo '<a href="post_post.php?master_id='.$_GET['id'].'"><button>Post post</button></a>';
-                    echo '<a href="index.php"><button class="righter">Go back</button></a>';
-                    echo "<h2>Leírás:</h2>";
-                    echo "<p>".$row['description']."</p>";
+                    echo "<h5><a href='profile.php?id=".$user_id."'>".$row['topic_creator']." </a></h5></div></div></div>";
+                    echo "<p class='topic-desc'><i class='fa-solid fa-calendar-days'></i> ".$row['date']."</p>";
+                    echo "<p class='topic-desc'>".$row['description']."</p>";
+                    echo '<div class="forum-top-container"><a href="index.php"><button class="backbtn"><i id="left" class="fa-solid  fas fa-angle-left"></i> </button></a>';
+                    echo '<a href="post_post.php?master_id='.$_GET['id'].'"><button class="forumbtn btright"><i class="fa-solid fa-newspaper"></i> Poszt írása</button></a></div>';
                 }
-            } else echo "topic not found";
-        } else echo "topic not found";
+            } else echo "A téma nem található";
+        } else echo "A téma nem található";
 
-         echo '<table border="20px" style="border: 10px;">'?>
+         echo '<table class="table-topic">'?>
                 <tr>
                     <th style="width: 50px;">
                          <span>ID</span>
                     </th>
                     <th style="width: 400px;">
-                        Name
+                        Poszt
                     </th>
                     <th style="width: 80px;">
-                        Creator
+                        Létrehozó
                     </th>
                     <th style="width: 100px;">
-                        Date
+                        Létrehozás dátuma
                     </th>
                 </tr>
                 <br>
                 <?php
-                
-                echo '<br><h2 style="text-align:center;">Posztok</h2>';
                 
                 $q8 = "SELECT * FROM posts WHERE master_id='".$_GET['id']."'";
                 $result = $conn->query($q8);
@@ -80,10 +98,11 @@ ob_start();
                         while ($rows = mysqli_fetch_assoc($result_2)){
                             $creator = $rows['id'];
                             if ($rows['username'] == $_SESSION['username']) $edit_button = 1;
+                            $pp =  $rows['profile_pic'];
                         }
-                        if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['post_creator']."</td></a>";
+                        if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'><img src=".$pp." alt='Profilkép' class='profilepic-small'> ".$row['post_creator']."</td></a>";
                         else{
-                                echo "<td><a href='topic.php?id=".$row['post_id']."&action=del'> you(DELETE)</td></a>";
+                                echo "<td>Én <a href='topic.php?id=".$row['post_id']."&action=del'>[<i class='fa-solid fa-trash'></i> TÖRLÉS]</td></a>";
                         }
 
                         echo "<td><a href='post.php?id=$pid'>".$row['date']."</td></a>";
@@ -92,6 +111,7 @@ ob_start();
                 } else echo " not found";
                 echo"</table>";
             ?>
+            </div>
         </div>
 
      

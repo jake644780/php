@@ -10,11 +10,28 @@
 ?>
 <html>
     <head>
-        <title>3MinusPerfumes_Forum</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link href="https://fonts.cdnfonts.com/css/florentia" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Noto+Sans+Indic+Siyaq+Numbers&family=Roboto+Slab:wght@300&display=swap"
+    rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/style.css">
+
+<script src="https://kit.fontawesome.com/8cd5027783.js" crossorigin="anonymous"></script>
     </head>
         <?php include("header.php"); ?>
     <body>
-        <div class="content">       
+        <div class="content-area-dark">
+            <div class="container">       
         <?php  
         $q12 = "select * from posts where post_id='".$_GET['id']."'";
         if($_GET['id']){
@@ -24,17 +41,22 @@
                     $by_me = 0;
                     $q10 = "select * from users where username='".$row['post_creator']."'";
                     $result2 = $conn->query($q10);
-                    while ($row2 = mysqli_fetch_assoc($result2)) $user_id = $row2['id'];
-                    echo "<h1>".$row['post_name']."</h1><br>";
-                    if ($_SESSION['username'] == $row['post_creator']) echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>Me</i></a></h5><br><br>";
+                    while ($row2 = mysqli_fetch_assoc($result2)) {
+                        $user_id = $row2['id'];
+                        $pp = $row2['profile_pic'];
+                    }
+                    echo "<title>".$row['post_name']." | 3minus Forum</title>";
+                    echo "<h4 class='forum-title'>".$row['post_name']."</h4>";
+                    echo '<div class="forum-top-container"><a href="index.php"><button class="backbtn"><i id="left" class="fa-solid  fas fa-angle-left"></i> </button></a>';
+                    echo '<a href="post.php?action=co&id='.$_GET['id'].'"><button class="forumbtn btright"><i class="fa-solid fa-comment"></i> Komment írása</button></a></div>';
+                    echo "<div class='post-main'><p class='post-text'>" .$row['post_content']."</p><hr class='post-line'>";
+                    if ($_SESSION['username'] == $row['post_creator']) echo "<div class='profile-card pc-post'><h5><a href='profile.php?id=".$user_id."'><img class='profilepic-small' src='".$pp."' >Én</a></h5></div></div>";
                     else 
-                    echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>".$row['post_creator']."</i></a></h5><br><br>";
-                    echo $row['post_content'];
+                    echo "<div class='profile-card pc-post'><h5><a href='profile.php?id=".$user_id."'><img class='profilepic-small' src='".$pp."' >".$row['post_creator']."</a></h5></div>";
+                    echo "<p class='post-date'><i class='fa-solid fa-calendar-days'></i> ".$row["date"]."</p></div>";
                 }
-            } else echo "topic not found";
-        } else echo "topic not found";
-                echo '<a href="index.php"><button>Go back</button></a>';
-                echo '<a href="post.php?action=co&id='.$_GET['id'].'">create comment</a>';
+            } else echo "A téma nem található";
+        } else echo "A téma nem található";
                 ?>
             <?php
 
@@ -92,6 +114,7 @@
                } else echo " not found";
                echo"</table>";
             ?>
+        </div>
         </div>
 
      

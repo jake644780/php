@@ -20,18 +20,48 @@
 
 <html>
     <head>
-        <title>3MinusPerfumes_Forum</title>
+          <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="styles/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link href="https://fonts.cdnfonts.com/css/florentia" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Noto+Sans+Indic+Siyaq+Numbers&family=Roboto+Slab:wght@300&display=swap"
+    rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+
+<script src="https://kit.fontawesome.com/8cd5027783.js" crossorigin="anonymous"></script>
+<script src="ui_homepage.js"></script>
+        <title>Poszt írása | 3minus Forum</title>
     </head>
     <body>
     <?php 
      
     include("header.php"); ?> <div class="content">
-        
-            <?php echo "<form action='post_post.php?master_id=$master_id' method='POST'>" ?>
-                <br>Post name: <br><input type="text" name="post_name" style="width: 400px;"><br>
-                <br>Content: <br><textarea name="con" cols="30" rows="10" placeholder="type something..."></textarea><br>
-                <input type="submit" name="submit" value="Post" style="width: 300px;"><br><br><br>
-            </form>
+
+    <div class="content-area-dark">
+        <div class="container">
+            <h4 class="forum-title">Poszt írása</h4>
+            <div class="post-editor">
+                <?php echo "<form action='post_post.php?master_id=$master_id' method='POST'>" ?>
+                    <br>Poszt címe: <br><input type="text" name="post_name" placeholder="milyen oszkár" required><br>
+                    <br>Szöveg: <br><textarea name="con" cols="30" rows="10" placeholder="aki a fa..." required></textarea><br>
+                    <input type="submit" name="submit" value="Közzététel" class="forumbtn"><br><br><br>
+                </form>
+            </div>
+        </div>
     </div>
     </body>
 </html>
@@ -51,7 +81,7 @@ if (isset($_POST['submit'])){
             $query = "SELECT * FROM posts WHERE post_name='$post_name'";
             $result = $conn->query($query);
             if ($result->num_rows > 0) {
-                echo "Post with this name already exists. Please choose a different name.";
+                echo "Ilyen című poszt már létezik. Adj neki valami mást!";
             } else {
                 $result = $conn->query("INSERT INTO posts (`post_id`,`post_name`,`post_content`,`post_creator`,`date`,`master_id`) VALUES ('','".$post_name."','".$content."', '".$_SESSION['username']."', '".$date."', '".$master_id."')");
                 if ($result){
@@ -60,7 +90,7 @@ if (isset($_POST['submit'])){
 
                 }
             }
-        } else echo "name has to be atleast 6 chars long and less than 70";
-    } else echo "please fill in all the fields";
+        } else echo "A címnek 6 és 70 karakter között kell lennie";
+    } else echo "Töltsd ki az összes mezőt";
 }
 ?>
