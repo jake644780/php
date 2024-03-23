@@ -84,11 +84,10 @@ ob_start();
                         } else echo " not found";
                         echo"</table>";
                     ?>
-                    <br><br><br><br><br><br><br><br><br><br>
                 </div>
             </div>
 
-     
+            <?php include("footer.php"); ?>
     </body>
 </html>
 

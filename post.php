@@ -58,6 +58,7 @@
             } else echo "A téma nem található";
         } else echo "A téma nem található";
                 ?>
+            
             <?php
 
                 $q4 = "select * from users where username='".$_SESSION['username']."'";
@@ -68,12 +69,12 @@
                     $com_crea =  $rowsss['username'];
                 }
                 if (@$_GET['action'] == "co"){
-                    echo '<div class="content">
+                    echo '<div class="post-editor">
                         <form action="post.php?action=co&id='.$_GET['id'].'" method="POST">';
                     echo "<input type='hidden' name='creator' value='".$_SESSION['username']."'>";
                     echo "<input type='hidden' name='com_id' value='".$com_id."'>";
-                    echo "enter comment: <input type='text' name='co_cont'><br>";
-                    echo "<input type='submit' name='submit_co' value='change'>";
+                    echo "<input type='text' name='co_cont' placeholder='téged meg ki kérdezett'><br>";
+                    echo "<input type='submit' name='submit_co' value='Küldés' class='forumbtn'>";
                     echo "</form></div>";
                 }
                 $comment_value = @$_POST['co_cont'];
@@ -84,8 +85,8 @@
                     echo "succcess";
                 }
                 echo '<table border="20px" style="border: 10px;">'?>
-                <tr><td><span>ID</span></td><td style="width: 400px;">Comment</td><td style="width: 80px;">Creator</td><td style="width: 80px;">Date</td></tr>
-                <br>
+
+                <h4 class="forum-title"><i class="fa-regular fa-comment"></i> Kommentek</h4>
 
                 <?php
                $q8 = "SELECT * FROM comments WHERE master_id='".$_GET['id']."'";
@@ -94,22 +95,20 @@
                    while($row = mysqli_fetch_assoc($result)){
                        $edit_button = 0;
                        $pid = $row['comment_id'];
-                       echo "<tr>";
-                       echo "<td>".$row['comment_id']."</td>";
-                       echo "<td>".$row['comment_content']."</td>";
+                       echo "<div class='post-main'><p class='post-text'>" .$row['comment_content']."</p><hr class='post-line'>";
                        $q11 = "select * from users where username='".$row['comment_creator']."'";
                        $result_2 = $conn->query($q11);
                        while ($rows = mysqli_fetch_assoc($result_2)){
-                           $creator = $rows['id'];
-                           if ($rows['username'] == $_SESSION['username']) $edit_button = 1;
+                            $creator = $rows['id'];
+                            if ($rows['username'] == $_SESSION['username']) $edit_button = 1;
+                            $pp = $rows['profile_pic'];
                        }
-                       if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['comment_creator']."</td></a>";
+                       if ($edit_button == 0) echo "<div class='profile-card pc-post'><h5><a href='profile.php?id=$creator'><img class='profilepic-small' src='$pp' >".$row['comment_creator']."</a></h5></div> ";
                        else{
-                               echo "<td><a href='post.php?id=".$row['comment_id']."&action=del'> you (DELETE)</td></a>";
+                               echo "<div class='profile-card pc-post'><h5><img class='profilepic-small' src='".$pp."' >Én <a href='post.php?id=".$row['comment_id']."&action=del'>[<i class='fa-solid fa-trash'></i> TÖRLÉS]</a></h5></div>";
                        }
-
-                       echo "<td>".$row['date']."</td>";
-                       echo "</tr>";
+                       echo "<p class='post-date'><i class='fa-solid fa-calendar-days'></i> ".$row["date"]."</p></div>";
+                       echo "</div>";
                    }
                } else echo " not found";
                echo"</table>";
@@ -117,7 +116,7 @@
         </div>
         </div>
 
-     
+        <?php include("footer.php"); ?>
     </body>
 </html>
 
