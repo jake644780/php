@@ -10,11 +10,28 @@
 ?>
 <html>
     <head>
-        <title>3MinusPerfumes_Forum</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+    integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+
+  <link href="https://fonts.cdnfonts.com/css/florentia" rel="stylesheet">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Merriweather:wght@300&family=Noto+Sans+Indic+Siyaq+Numbers&family=Roboto+Slab:wght@300&display=swap"
+    rel="stylesheet">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles/style.css">
+
+<script src="https://kit.fontawesome.com/8cd5027783.js" crossorigin="anonymous"></script>
     </head>
         <?php include("header.php"); ?>
     <body>
-        <div class="content">       
+        <div class="content-area-dark">
+            <div class="container">       
         <?php  
         $q12 = "select * from posts where post_id='".$_GET['id']."'";
         if($_GET['id']){
@@ -24,18 +41,24 @@
                     $by_me = 0;
                     $q10 = "select * from users where username='".$row['post_creator']."'";
                     $result2 = $conn->query($q10);
-                    while ($row2 = mysqli_fetch_assoc($result2)) $user_id = $row2['id'];
-                    echo "<h1>".$row['post_name']."</h1><br>";
-                    if ($_SESSION['username'] == $row['post_creator']) echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>Me</i></a></h5><br><br>";
+                    while ($row2 = mysqli_fetch_assoc($result2)) {
+                        $user_id = $row2['id'];
+                        $pp = $row2['profile_pic'];
+                    }
+                    echo "<title>".$row['post_name']." | 3minus Forum</title>";
+                    echo "<h4 class='forum-title'>".$row['post_name']."</h4>";
+                    echo '<div class="forum-top-container"><a href="index.php"><button class="backbtn"><i id="left" class="fa-solid  fas fa-angle-left"></i> </button></a>';
+                    echo '<a href="post.php?action=co&id='.$_GET['id'].'"><button class="forumbtn btright"><i class="fa-solid fa-comment"></i> Komment írása</button></a></div>';
+                    echo "<div class='post-main'><p class='post-text'>" .$row['post_content']."</p><hr class='post-line'>";
+                    if ($_SESSION['username'] == $row['post_creator']) echo "<div class='profile-card pc-post'><h5><a href='profile.php?id=".$user_id."'><img class='profilepic-small' src='".$pp."' >Én</a></h5></div></div>";
                     else 
-                    echo "<h5> By: <a href='profile.php?id=".$user_id."'><i>".$row['post_creator']."</i></a></h5><br><br>";
-                    echo $row['post_content'];
+                    echo "<div class='profile-card pc-post'><h5><a href='profile.php?id=".$user_id."'><img class='profilepic-small' src='".$pp."' >".$row['post_creator']."</a></h5></div>";
+                    echo "<p class='post-date'><i class='fa-solid fa-calendar-days'></i> ".$row["date"]."</p></div>";
                 }
-            } else echo "topic not found";
-        } else echo "topic not found";
-                echo '<a href="index.php"><button>Go back</button></a>';
-                echo '<a href="post.php?action=co&id='.$_GET['id'].'">create comment</a>';
+            } else echo "A téma nem található";
+        } else echo "A téma nem található";
                 ?>
+            
             <?php
 
                 $q4 = "select * from users where username='".$_SESSION['username']."'";
@@ -46,12 +69,12 @@
                     $com_crea =  $rowsss['username'];
                 }
                 if (@$_GET['action'] == "co"){
-                    echo '<div class="content">
+                    echo '<div class="post-editor">
                         <form action="post.php?action=co&id='.$_GET['id'].'" method="POST">';
                     echo "<input type='hidden' name='creator' value='".$_SESSION['username']."'>";
                     echo "<input type='hidden' name='com_id' value='".$com_id."'>";
-                    echo "enter comment: <input type='text' name='co_cont'><br>";
-                    echo "<input type='submit' name='submit_co' value='change'>";
+                    echo "<input type='text' name='co_cont' placeholder='téged meg ki kérdezett'><br>";
+                    echo "<input type='submit' name='submit_co' value='Küldés' class='forumbtn'>";
                     echo "</form></div>";
                 }
                 $comment_value = @$_POST['co_cont'];
@@ -62,8 +85,8 @@
                     echo "succcess";
                 }
                 echo '<table border="20px" style="border: 10px;">'?>
-                <tr><td><span>ID</span></td><td style="width: 400px;">Comment</td><td style="width: 80px;">Creator</td><td style="width: 80px;">Date</td></tr>
-                <br>
+
+                <h4 class="forum-title"><i class="fa-regular fa-comment"></i> Kommentek</h4>
 
                 <?php
                $q8 = "SELECT * FROM comments WHERE master_id='".$_GET['id']."'";
@@ -72,29 +95,28 @@
                    while($row = mysqli_fetch_assoc($result)){
                        $edit_button = 0;
                        $pid = $row['comment_id'];
-                       echo "<tr>";
-                       echo "<td>".$row['comment_id']."</td>";
-                       echo "<td>".$row['comment_content']."</td>";
+                       echo "<div class='post-main'><p class='post-text'>" .$row['comment_content']."</p><hr class='post-line'>";
                        $q11 = "select * from users where username='".$row['comment_creator']."'";
                        $result_2 = $conn->query($q11);
                        while ($rows = mysqli_fetch_assoc($result_2)){
-                           $creator = $rows['id'];
-                           if ($rows['username'] == $_SESSION['username']) $edit_button = 1;
+                            $creator = $rows['id'];
+                            if ($rows['username'] == $_SESSION['username']) $edit_button = 1;
+                            $pp = $rows['profile_pic'];
                        }
-                       if ($edit_button == 0) echo "<td><a href='profile.php?id=$creator'>".$row['comment_creator']."</td></a>";
+                       if ($edit_button == 0) echo "<div class='profile-card pc-post'><h5><a href='profile.php?id=$creator'><img class='profilepic-small' src='$pp' >".$row['comment_creator']."</a></h5></div> ";
                        else{
-                               echo "<td><a href='post.php?id=".$row['comment_id']."&action=del'> you (DELETE)</td></a>";
+                               echo "<div class='profile-card pc-post'><h5><img class='profilepic-small' src='".$pp."' >Én <a href='post.php?id=".$row['comment_id']."&action=del'>[<i class='fa-solid fa-trash'></i> TÖRLÉS]</a></h5></div>";
                        }
-
-                       echo "<td>".$row['date']."</td>";
-                       echo "</tr>";
+                       echo "<p class='post-date'><i class='fa-solid fa-calendar-days'></i> ".$row["date"]."</p></div>";
+                       echo "</div>";
                    }
                } else echo " not found";
                echo"</table>";
             ?>
         </div>
+        </div>
 
-     
+        <?php include("footer.php"); ?>
     </body>
 </html>
 

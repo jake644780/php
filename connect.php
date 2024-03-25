@@ -1,3 +1,3 @@
 <?php
-$conn = new mysqli("localhost", "root", "","3minusperfumes_forum");
+$conn = new mysqli("localhost", "om", "om","forum");
 ?>
